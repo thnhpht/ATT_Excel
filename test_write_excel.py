@@ -24,15 +24,18 @@ def get_users():
             arr_users.append(arr_user)
     return arr_users
 
+def check_date_time(n):
+    if int(n) < 10:
+        return "0" + str(n)
+    return str(n)
+    
 def get_date_time(month, year):
     arr_datetime = []
     num_days = calendar.monthrange(year, month)[1]
-    if int(month) < 10:
-            month = "0" + str(month)
+    month = check_date_time(month)
+    
     for day in range(1, num_days + 1):
-        if int(day) < 10:
-            day = "0" + str(day)
-
+        day = check_date_time(day)
         datetime = str(day) + "/" + str(month) + "/" + str(year)
         arr_datetime.append(datetime)
     return arr_datetime
@@ -76,6 +79,35 @@ def get_clock_out(user_id, date):
             x3 = x2[1].strip().split()
             return str(x3[1]) + ":" + str(x2[2])     
 
+def get_work_time(clock_in, clock_out):
+    if clock_in != None and clock_out != None:
+        arr_clock_in = clock_in.split(":")
+        arr_clock_out = clock_out.split(":")
+
+        hour_clock_in = arr_clock_in[0]
+        hour_clock_out = arr_clock_out[0]
+
+        minute_clock_in = arr_clock_in[1]
+        minute_clock_out = arr_clock_out[1]
+
+        if minute_clock_out > minute_clock_in:
+            return check_date_time(int(hour_clock_out) - int(hour_clock_in)) + ":" + check_date_time(int(minute_clock_out) - int(minute_clock_in))
+        return check_date_time(int(hour_clock_out) - int(hour_clock_in) - 1) + ":" + check_date_time((60 + int(minute_clock_out)) - int(minute_clock_in))
+    return None
+
+def get_real_time(work_time):
+    if work_time != None:
+        arr_work_time = work_time.split(":")
+        hour_work_time = arr_work_time[0]
+
+        if int(hour_work_time) < 4:
+            return 0
+        elif int(hour_work_time) >= 8:
+            return 1
+        else:
+            return 0.5
+    return None
+
 def output_Excel(input_detail, output_excel_path):
   #Xác định số hàng và cột lớn nhất trong file excel cần tạo
   row = len(input_detail)
@@ -113,9 +145,15 @@ for i in range(len(get_users())):
         off_duty = "18:00"
         clock_in = get_clock_in(ac_no, date)
         clock_out = get_clock_out(ac_no, date)
+        normal = 1
+        work_time = get_work_time(clock_in, clock_out)
+        real_time = get_real_time(work_time)
+        late = ""
+        early = ""
+        absent = "True"
+        ot_time = ""
 
-
-        input_arr.append(ac_no)
+        input_arr.append(int(ac_no))
         input_arr.append(no)
         input_arr.append(name)
         input_arr.append(date)
@@ -124,6 +162,15 @@ for i in range(len(get_users())):
         input_arr.append(off_duty)
         input_arr.append(clock_in)
         input_arr.append(clock_out)
+        input_arr.append(normal)
+        input_arr.append(real_time)
+        input_arr.append(late)
+        input_arr.append(early)
+        input_arr.append(absent)
+        input_arr.append(ot_time)
+        input_arr.append(work_time)
+
+
 
         input_detail.append(input_arr)
 

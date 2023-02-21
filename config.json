@@ -1,0 +1,29 @@
+{
+  "company_id": 1,
+  "minute": 30,
+  "time_attendance": [
+    {
+      "id": "8116223560982",
+      "ip":"192.168.1.201",
+      "port":4370,
+      "password": ""
+    }
+  ],
+  "shift": [
+  {
+      "shift_code": "CS",
+      "work_start": "08:00",
+      "work_end": "12:00"
+  }, 
+  {
+      "shift_code": "CC",
+      "work_start": "13:00",
+      "work_end": "17:00"
+  }, 
+  {
+      "shift_code": "CD",
+      "work_start": "22:00",
+      "work_end": "02:00"
+  }
+  ]
+}

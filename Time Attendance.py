@@ -21,7 +21,7 @@ for x in data["time_attendance"]:
         attendance = conn.get_attendance()
         attendances += attendance
     except:
-        print("Khởi động lại máy chấm công serial number:", x["id"])
+        print("Khởi động lại máy chấm công SN:", x["id"])
         exit()
 print(attendances)
 # Lấy thông tin tất cả người dùng trong máy

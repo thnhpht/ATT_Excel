@@ -5,7 +5,7 @@ import datetime
 from datetime import timedelta
 
 # Mở file config
-f = open("D:\Web API\config.json")
+f = open("config.json")
   
 # Trả về dạng dictionary
 data = json.load(f)
@@ -21,9 +21,9 @@ for x in data["time_attendance"]:
         attendance = conn.get_attendance()
         attendances += attendance
     except:
-        print("Khởi động lại máy chấm công SN:", x["id"])
+        print("Khởi động lại máy chấm công serial number:", x["id"])
         exit()
-print(attendances)
+
 # Lấy thông tin tất cả người dùng trong máy
 list_users = []
 users = conn.get_users()
@@ -167,7 +167,7 @@ input_detail = [["AC-No.", "No.", "Name", "Date", "Timetable", "On duty", "Off d
 
 # Đưa vào thông tin muốn lấy ngày chấm công
 date_from = datetime.date(2023, 2, 1)
-date_to = datetime.date(2023, 2, 21)
+date_to = datetime.date(2023, 2, 28)
 date = get_date()
 on_duty = "08:30"
 off_duty = "17:30"
@@ -184,24 +184,24 @@ for i in range(len(list_users)):
         time_table = get_day_in_week(current)
         clock_in = get_clock_in(current)
         clock_out = get_clock_out(current)
-        normal = None
-        work_time = None
-        real_time = None
-        late = None
-        early = None
-        absent = None
-        ot_time = None
-        exception = None
-        must_clock_in = None 
-        must_clock_out = None
-        department = None
-        n_days = None
-        weekend = None
-        holiday = None
-        att_time = None
-        n_days_ot = None
-        weekend_ot = None
-        holiday_ot = None
+        # normal = None
+        # work_time = None
+        # real_time = None
+        # late = None
+        # early = None
+        # absent = None
+        # ot_time = None
+        # exception = None
+        # must_clock_in = None 
+        # must_clock_out = None
+        # department = None
+        # n_days = None
+        # weekend = None
+        # holiday = None
+        # att_time = None
+        # n_days_ot = None
+        # weekend_ot = None
+        # holiday_ot = None
 
         input_arr.append(int(ac_no))
         input_arr.append(no)
@@ -212,29 +212,32 @@ for i in range(len(list_users)):
         input_arr.append(off_duty)
         input_arr.append(clock_in)
         input_arr.append(clock_out)
-        input_arr.append(normal)
-        input_arr.append(real_time)
-        input_arr.append(late)
-        input_arr.append(early)
-        input_arr.append(absent)
-        input_arr.append(ot_time)
-        input_arr.append(work_time)
-        input_arr.append(exception)
-        input_arr.append(must_clock_in)
-        input_arr.append(must_clock_out)
-        input_arr.append(department)
-        input_arr.append(n_days)
-        input_arr.append(weekend)
-        input_arr.append(holiday)
-        input_arr.append(att_time)
-        input_arr.append(n_days_ot)
-        input_arr.append(weekend_ot)
-        input_arr.append(holiday_ot)
+
+        for i in range(19):
+            input_arr.append(None)
+        # input_arr.append(normal)
+        # input_arr.append(real_time)
+        # input_arr.append(late)
+        # input_arr.append(early)
+        # input_arr.append(absent)
+        # input_arr.append(ot_time)
+        # input_arr.append(work_time)
+        # input_arr.append(exception)
+        # input_arr.append(must_clock_in)
+        # input_arr.append(must_clock_out)
+        # input_arr.append(department)
+        # input_arr.append(n_days)
+        # input_arr.append(weekend)
+        # input_arr.append(holiday)
+        # input_arr.append(att_time)
+        # input_arr.append(n_days_ot)
+        # input_arr.append(weekend_ot)
+        # input_arr.append(holiday_ot)
 
         input_detail.append(input_arr)
 
 # Đường dẫn xuất file
-output_excel_path= 'D:/Test/test.xlsx'
+output_excel_path= 'D:/DuLieuChamCong.xlsx'
 # Xuất file
 output_Excel(input_detail,output_excel_path)
 print("Xuất file Excel thành công")

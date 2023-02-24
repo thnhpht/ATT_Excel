@@ -8,12 +8,12 @@ from datetime import timedelta
 f = open("config.json")
   
 # Trả về dạng dictionary
-data = json.load(f)
+config = json.load(f)
 
 # Lặp và kết nối các máy chấm công từ file config
 attendances = []
 
-for x in data["time_attendance"]:
+for x in config["time_attendance"]:
     conn = None
     zk = ZK(x["ip"], port=x["port"])
     try:
@@ -35,7 +35,14 @@ for user in users:
         list_users.append(list_user)
 
 # Lấy số phút cần trừ ra trước giờ chấm công
-minute_must_ci = data["minute"]
+minute_must_ci = config["minute"]
+
+# Lấy on duty, off duty
+for shift in config["shift"]:
+    if shift["shift_code"] == "CS":
+        on_duty = shift["work_start"]
+        off_duty = shift["work_end"]
+        break
 
 # Đóng file 
 f.close()
@@ -169,8 +176,6 @@ input_detail = [["AC-No.", "No.", "Name", "Date", "Timetable", "On duty", "Off d
 date_from = datetime.date(2023, 2, 1)
 date_to = datetime.date(2023, 2, 28)
 date = get_date()
-on_duty = "08:30"
-off_duty = "17:30"
 
 # Lặp lấy thông tin và đưa vào mảng
 for i in range(len(list_users)):

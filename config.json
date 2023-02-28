@@ -24,5 +24,15 @@
       "work_start": "22:00",
       "work_end": "02:00"
   }
-  ]
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Nguyễn Đặng Thành Phát"
+    }, 
+    {
+      "id": "2",
+      "name": "Phát Nguyễn"
+    }
+    ]
 }

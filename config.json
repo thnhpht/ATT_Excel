@@ -27,11 +27,11 @@
   ],
   "users": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Nguyễn Đặng Thành Phát"
     }, 
     {
-      "id": "2",
+      "id": 2,
       "name": "Phát Nguyễn"
     }
     ]
